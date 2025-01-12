@@ -69,8 +69,22 @@ public class ExampleController {
             String name = jsonObject1.getString("name");
             int age = jsonObject1.getInt("age");
 
+            String rola = null;
+            try {
+                if (jsonObject1.getString("rola") != null) {
+                    rola = jsonObject1.getString("rola");
+                }
+                System.out.println("no exception!");
+            } catch (Exception e) {
+                System.out.println("exception!");
+            }
+
 
             Person person = new Person(name, age);
+            if (rola != null) {
+
+                person.setRola(rola);
+            }
             persons.add(person);
         }
 
@@ -78,6 +92,10 @@ public class ExampleController {
             System.out.println("printing");
             System.out.println(persons.get(i).getAge());
             System.out.println(persons.get(i).getName());
+            if (persons.get(i).getRola() != null) {
+                System.out.println("in if bro!");
+                System.out.println(persons.get(i).getRola());
+            }
         }
 
         System.out.println("83");
@@ -134,6 +152,8 @@ class Person {
     private String name;
     private int age;
 
+    private String rola;
+
     // Constructor
     public Person(String name, int age) {
         this.name = name;
@@ -155,5 +175,13 @@ class Person {
         jsonObject.put("name", name);
         jsonObject.put("age", age);
         return jsonObject;
+    }
+
+    public void setRola(String rola) {
+        this.rola = rola;
+    }
+
+    public String getRola() {
+        return rola;
     }
 }
